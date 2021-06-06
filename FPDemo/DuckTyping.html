@@ -1,0 +1,22 @@
+<html>
+    <script>
+        var human = {
+            work : function()
+            {
+                console.log("Human Work ");
+            }
+        }
+
+        var engine = {
+            work :function()
+            {
+                console.log("Engine start");
+            }
+        }
+        var h = human;
+        h.work();
+
+        h = engine;
+        h.work();
+    </script>
+</html>

@@ -1,0 +1,40 @@
+<html>
+    <script>
+        var arr = [10,20,30,40,55,13,22,100];
+        
+        var list = [];
+        var total = 1;
+        for(var i=0;i< arr.length;i++)
+        {
+            if(arr[i]%2!=0)
+            {
+                total*= arr[i];
+                list.push(arr[i]);
+            }
+        }
+        console.log(" Odd list ",list);
+        console.log("Sum of odd list ",total);
+
+        var compose = function (a,b)
+        {
+            return function(x)
+            {
+                return a(b(x));
+            }
+        }
+        var incOne = (x) => x+1;
+        var doubleX = (x) =>x*x;
+        var func = compose(doubleX,incOne);
+
+        console.log("Composition ",func(3));
+        //FP
+        var isEven = (e)=>e%2==0;
+        var isOdd = (e)=>!isEven(e);
+        var sum = (a,b) => a+b;
+        var mul = (a,b)=> a* b;
+        
+        var fpEvenList = arr.filter(isOdd)
+                            .reduce(mul);
+        console.log("Odd list in FP ",fpEvenList);
+    </script>
+</html>
