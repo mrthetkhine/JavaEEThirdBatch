@@ -1,0 +1,19 @@
+<html>
+    <script>
+        function linearSearch(arr )
+        {
+            console.log('Linear Search ',arr);
+        }
+        function binarySearch(arr)
+        {
+            console.log('Binary Search ',arr);
+        }
+        var arr = [10,20];
+        var algorithm  = {
+            "linear":linearSearch,
+            "binary":binarySearch
+        }
+        var algo = "binary";
+        algorithm[algo](arr);
+    </script>
+</html>

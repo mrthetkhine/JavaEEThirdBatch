@@ -1,0 +1,20 @@
+App Start
+    Scan Annotation from classpath using refelection API
+    mappedController (route=?, method)->store
+
+    Request mappedController 
+        HTTP request-> Parameter Object
+            Transformer
+            Validation
+            Security AOP
+            Interceptor
+
+            Invoke controller method using reflection
+            Fill Session data
+            
+            ViewHandler
+                viewName-> View Engine-> Resolve 
+
+            Http Response
+                User    
+

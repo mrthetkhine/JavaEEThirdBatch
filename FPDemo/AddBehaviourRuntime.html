@@ -1,0 +1,22 @@
+<html>
+    <script>
+        function method1()
+        {
+            console.log("Method1")
+        }
+    
+
+        function addBehaviour(method)
+        {
+            return function()
+            {
+               console.log("Authentication"); 
+               method();
+               console.log("Logging");     
+            }
+             
+        }
+        var method2 = addBehaviour(method1);
+        method2();
+    </script>
+</html>
