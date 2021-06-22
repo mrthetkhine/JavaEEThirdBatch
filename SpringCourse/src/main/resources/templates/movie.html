@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Movie View</title>
+</head>
+<body>
+	<h1>Movie view </h1>
+	<form method="POST" th:object="${movie}">
+		Name <input type="text" th:field="*{name}"/> <br/>
+		Director <input type="text" th:field="*{director}"/> <br/>
+		
+		<button type="submit">Create</button>
+	</form>
+	
+ 	<p th:text="${message}">placeholder message</p>
+ 	
+</body>
+</html>
