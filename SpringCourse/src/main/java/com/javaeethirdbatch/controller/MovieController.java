@@ -3,8 +3,11 @@ package com.javaeethirdbatch.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.ShoppingCart;
@@ -13,10 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SessionAttributes("cart")
 @RequestMapping("/movie")
 public class MovieController {
 
-	ShoppingCart cart = new ShoppingCart();
+	//Create session attribute
+	@ModelAttribute("cart")
+	public ShoppingCart getCart() {
+		log.info("Create new Shopping Cart");
+		return new ShoppingCart();
+	}
 	
 	@GetMapping
 	public String newMovie(Model model)
@@ -33,13 +42,13 @@ public class MovieController {
 	}
 	
 	@PostMapping
-	public String createMovie(Movie movie)
+	public String createMovie(Movie movie,@SessionAttribute("cart")ShoppingCart cart)
 	{
-		this.cart.addMovie(movie);
+		cart.addMovie(movie);
 		log.info("Post controller "+movie.getName()+" Director "+movie.getDirector());
 		
 		log.info("No of movie in shopping cart "+ cart.getMovies().size());
-		return "movie";
+		return "movie-list";
 		//return "redirect:/";
 	}
 	@GetMapping("/new")
