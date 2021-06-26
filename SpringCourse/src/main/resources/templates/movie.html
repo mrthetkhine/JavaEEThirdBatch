@@ -21,6 +21,9 @@
 		<span class="validationError" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director Error</span>
 		<br/>
 		
+		Year <input type="text" th:field="*{year}"/> 
+		<span class="validationError" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</span>
+		<br/>
 		<button type="submit">Create</button>
 	</form>
 	

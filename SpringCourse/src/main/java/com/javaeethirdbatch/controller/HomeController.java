@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class HomeController {
 
+	/*
 	@GetMapping("/")
 	public String home()
 	{
@@ -19,4 +20,5 @@ public class HomeController {
 		//log.info("Shopping cart size at "+cart.getMovies().size());
 		return "home";
 	}
+	*/
 }

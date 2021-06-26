@@ -57,11 +57,9 @@ public class MovieController {
 		{
 			cart.addMovie(movie);
 			log.info("Post controller "+movie.getName()+" Director "+movie.getDirector());
-			
 			log.info("No of movie in shopping cart "+ cart.getMovies().size());
 			return "movie-list";
 		}
-		
 		
 		//return "redirect:/";
 	}
