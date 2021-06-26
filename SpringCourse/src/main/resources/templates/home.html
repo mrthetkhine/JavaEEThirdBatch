@@ -3,10 +3,13 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Spring Demo</title>
 </head>
 <body>
 	<h1>Welcome to our Spring Boot</h1>
 	<img th:src="@{/images/download.jpeg}"/>
+	
+	<div th:insert="fragments/footer :: footer"></div>
+	
 </body>
 </html>
