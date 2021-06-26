@@ -9,7 +9,7 @@ import lombok.Data;
 public class ShoppingCart {
 
 	
-	private List<Movie> movies = new ArrayList<>();
+	List<Movie> movies = new ArrayList<>();
 
 	public void addMovie(Movie movie) {
 		this.movies.add(movie);
