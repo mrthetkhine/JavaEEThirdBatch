@@ -4,12 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Movie View</title>
+<style>
+.validationError
+{
+	color:red;
+}
+</style>
 </head>
 <body>
 	<h1>Movie view </h1>
 	<form method="POST" th:object="${movie}">
-		Name <input type="text" th:field="*{name}"/> <br/>
-		Director <input type="text" th:field="*{director}"/> <br/>
+		Name <input type="text" th:field="*{name}"/>
+		<span class="validationError" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+		 <br/>
+		Director <input type="text" th:field="*{director}"/> 
+		<span class="validationError" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director Error</span>
+		<br/>
 		
 		<button type="submit">Create</button>
 	</form>

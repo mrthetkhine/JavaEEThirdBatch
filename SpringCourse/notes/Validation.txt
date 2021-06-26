@@ -1,0 +1,4 @@
+1.Add Dependency
+2.Add Validation Annotation and Message in Bean
+3. Use @Valid in model attribute
+4. Use Erorr.hasError to check error
