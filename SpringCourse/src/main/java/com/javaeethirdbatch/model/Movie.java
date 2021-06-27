@@ -22,4 +22,6 @@ public class Movie {
 	@NotNull
 	@Range(min=1990, max=2021, message="Year must be between 1990 2021")
 	private Long year;
+	
+	private Genres genre;
 }

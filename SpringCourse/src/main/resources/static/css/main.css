@@ -1,6 +1,10 @@
+html{
+	 height: 100%;
+}
 body
 {
 	/*background:lightgray;*/
+	min-height:100%;
 }
 
 .validationError
