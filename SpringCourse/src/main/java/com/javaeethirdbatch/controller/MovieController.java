@@ -1,5 +1,8 @@
 package com.javaeethirdbatch.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -29,7 +32,19 @@ public class MovieController {
 		log.info("Create new Shopping Cart");
 		return new ShoppingCart();
 	}
-	
+	/*
+	 * Just for example,
+	 * In real world scenarios, we need to use service->dao
+	 * */
+	List<String> getMovieGenres()
+	{
+		List<String> genres = new ArrayList<String>();
+		
+		genres.add("Action");
+		genres.add("Romance");
+		genres.add("Horror");
+		return genres;
+	}
 	@GetMapping
 	public String newMovie(Model model)
 	{
@@ -37,8 +52,10 @@ public class MovieController {
 		Movie movie = new Movie();
 		//movie.setName("Titanic");
 		
+		List<String> genres = this.getMovieGenres();
 		//taco.setIngredients(ingredients);
 		model.addAttribute("movie", movie);
+		model.addAttribute("genres", genres);
 		model.addAttribute("message", "Welcome to Model");
 		
 		return "movie";

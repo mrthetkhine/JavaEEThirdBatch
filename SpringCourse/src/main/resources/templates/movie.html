@@ -27,10 +27,16 @@
 			<label for="genre"> Genre</label> 
 			<select class="form-control" th:field="*{genre}" >
                         <option value="">Nothing selected</option>
+                        <option th:each="g : ${genres}"
+                                th:value="${g}"
+                                th:text="${g}">Genres
+                        </option>
+                        <!--  
                         <option th:each="g : ${T(com.javaeethirdbatch.model.Genres).values()}"
                                 th:value="${g}"
                                 th:text="${g}">Genres
                         </option>
+                        -->
 
                     </select>
 		</div>
