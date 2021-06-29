@@ -54,6 +54,18 @@
             <artifactId>bootstrap</artifactId>
             <version>${bootstrap.version}</version>
 	     </dependency>
+	     
+	     <!-- SpringBoot JDBC -->
+	     <dependency> 
+	     	<groupId>org.springframework.boot</groupId> 
+	     	<artifactId>spring-boot-starter-jdbc</artifactId>
+		 </dependency>
+		 
+		 <!-- MySQL -->
+		 <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>

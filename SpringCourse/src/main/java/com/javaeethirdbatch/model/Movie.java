@@ -1,5 +1,6 @@
 package com.javaeethirdbatch.model;
 
+import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull; 
 import javax.validation.constraints.Size;
@@ -10,6 +11,8 @@ import lombok.Data;
 
 @Data
 public class Movie {
+	
+	private Long id;
 	
 	@NotNull
 	@Size(min=5, message="Name must be at least 5 characters long")
@@ -24,4 +27,8 @@ public class Movie {
 	private Long year;
 	
 	private Genres genre;
+	
+	private Date createAt = new Date();
+	
+	private Date updateAt = new Date();
 }

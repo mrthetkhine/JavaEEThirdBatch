@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.ShoppingCart;
+import com.javaeethirdbatch.repository.MovieRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("cart")
 @RequestMapping("/movie")
 public class MovieController {
+	
+	@Autowired
+	MovieRepository movieRepository;
 
 	//Create session attribute
 	@ModelAttribute("cart")
@@ -55,7 +60,7 @@ public class MovieController {
 		List<String> genres = this.getMovieGenres();
 		//taco.setIngredients(ingredients);
 		model.addAttribute("movie", movie);
-		model.addAttribute("genres", genres);
+		//model.addAttribute("genres", genres);
 		model.addAttribute("message", "Welcome to Model");
 		
 		return "movie";
@@ -72,10 +77,11 @@ public class MovieController {
 		}
 		else
 		{
+			this.movieRepository.save(movie);
 			cart.addMovie(movie);
 			log.info("Post controller "+movie.getName()+" Director "+movie.getDirector());
 			log.info("No of movie in shopping cart "+ cart.getMovies().size());
-			return "movie-list";
+			return "redirect:movie/movie-list";
 		}
 		
 		//return "redirect:/";
@@ -89,6 +95,15 @@ public class MovieController {
 		//taco.setIngredients(ingredients);
 		model.addAttribute("movie", movie);
 		return "movie";
+	}
+	
+	@GetMapping("/movie-list")
+	public String movieList(Model model)
+	{
+		List<Movie> movies = this.movieRepository.findAll();
+		//taco.setIngredients(ingredients);
+		model.addAttribute("movieList", movies);
+		return "movie-list";
 	}
 	
 }

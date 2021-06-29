@@ -8,7 +8,7 @@
 </head>
 <body>
 	
- 	<div th:if="${cart !=null}">
+ 	<div th:if="${movieList !=null}">
  		<table class="table table-stripped">
 	 		<thead>
 	 			<tr>
@@ -19,7 +19,7 @@
 	 			</tr>
 	 		</thead>
 	 		<tbody>
-	 			<tr th:each="movie:${cart.movies}">
+	 			<tr th:each="movie:${movieList}">
 	              <td th:text="${movie.name}"></td>
 	              <td th:text="${movie.director}"></td>
 	              <td th:text="${movie.year}"></td>
@@ -28,7 +28,7 @@
 	 		</tbody>
 	 	</table>
  	</div>
- 	<div th:if="${cart ==null}">
+ 	<div th:if="${movieList ==null}">
  		Sorry,there were no movies.
  	</div>
  	<div th:insert="fragments/footer :: footer"></div>
