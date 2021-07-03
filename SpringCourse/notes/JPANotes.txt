@@ -1,0 +1,7 @@
+JAP
+    Create Table with primary Key
+    Create JavaBean
+    Annotate Bean with Entity
+    Add Id
+    Add column using @Column
+        Type must be Compatiable
