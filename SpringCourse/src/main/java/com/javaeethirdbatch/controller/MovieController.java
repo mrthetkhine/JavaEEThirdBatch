@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,16 +77,20 @@ public class MovieController {
 	}
 	
 	@PostMapping
-	public String createMovie(@Valid MovieDto movie,
-								BindingResult errors,
-							  @SessionAttribute("cart")ShoppingCart cart,
-							  Model model)
+	public String createMovie(@Valid @ModelAttribute("movie")MovieDto movie,
+								BindingResult errors
+							  )
 	{
 		if(errors.hasErrors())
 		{
 			log.error("Got error in create movie count "+errors.getErrorCount());
-			model.addAttribute("movie", movie);
-			model.addAttribute("errors", errors);
+			//model.addAttribute("movie", movie);
+			
+			
+			for(FieldError fe : errors.getFieldErrors())
+			{
+				log.info(fe.getDefaultMessage());
+			}
 			return "movie";
 		}
 		else
@@ -93,7 +98,7 @@ public class MovieController {
 			this.movieService.saveMovie(movie);
 			//cart.addMovie(movie);
 			log.info("Post controller "+movie.getName()+" Director "+movie.getDirector());
-			log.info("No of movie in shopping cart "+ cart.getMovies().size());
+			///log.info("No of movie in shopping cart "+ cart.getMovies().size());
 			return "redirect:movie/movie-list";
 		}
 		

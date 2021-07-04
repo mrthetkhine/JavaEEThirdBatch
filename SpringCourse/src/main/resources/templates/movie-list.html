@@ -27,7 +27,7 @@
 	              <td th:text="${movie.year}"></td>
 	              <td th:text="${movie.genre}"></td>
 	              <td >
-	              	<a th:href="@{${movie.id}}">Delete</a>
+	              	<a th:href="@{'delete/'+${movie.id}}">Delete</a>
 	              </td>
 	            </tr>
 	 		</tbody>
