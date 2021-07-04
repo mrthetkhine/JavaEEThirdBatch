@@ -1,4 +1,4 @@
-package com.javaeethirdbatch.model;
+package com.javaeethirdbatch.dto;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,34 +17,35 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 
+import com.javaeethirdbatch.model.Genres;
+
 import lombok.Data;
 
-@Entity
-//@Table(name="movie")
+
 @Data
-public class Movie implements Serializable{
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+public class MovieDto {
+	
 	private Long id;
 	
-	
+	@NotNull
+	@Size(min=5, message="Name must be at least 5 characters long")
 	private String name;
 	
+	@NotNull
+	@Size(min=5, message="Director must be at least 5 characters long")
+	
 	private String director;
-		
+	
+	@NotNull
+	@Range(min=1990, max=2021, message="Year must be between 1990 2021")
 	private Long year;
 	
-	@Enumerated(EnumType.STRING)
-	//@Column(name="genre")
+
 	private Genres genre;
 	
-	@Column(name="createAt")
+	
 	private Date createAt = new Date();
 	
-	@Column(name="updateAt")
+	
 	private Date updateAt = new Date();
 }

@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.javaeethirdbatch.dto.MovieDto;
 import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.ShoppingCart;
+import com.javaeethirdbatch.repository.MovieJpaRepository;
 import com.javaeethirdbatch.repository.MovieRepository;
+import com.javaeethirdbatch.service.MovieService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,8 +31,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/movie")
 public class MovieController {
 	
+	/*
 	@Autowired
-	MovieRepository movieRepository;
+	//MovieRepository movieRepository;
+	MovieJpaRepository movieRepository;
+	*/
+	@Autowired
+	MovieService movieService;
 
 	//Create session attribute
 	@ModelAttribute("cart")
@@ -67,7 +75,7 @@ public class MovieController {
 	}
 	
 	@PostMapping
-	public String createMovie(@Valid Movie movie,Errors errors,
+	public String createMovie(@Valid MovieDto movie,Errors errors,
 							  @SessionAttribute("cart")ShoppingCart cart)
 	{
 		if(errors.hasErrors())
@@ -77,8 +85,8 @@ public class MovieController {
 		}
 		else
 		{
-			this.movieRepository.save(movie);
-			cart.addMovie(movie);
+			this.movieService.saveMovie(movie);
+			//cart.addMovie(movie);
 			log.info("Post controller "+movie.getName()+" Director "+movie.getDirector());
 			log.info("No of movie in shopping cart "+ cart.getMovies().size());
 			return "redirect:movie/movie-list";
@@ -89,7 +97,7 @@ public class MovieController {
 	@GetMapping("/new")
 	public String emptyMovie(Model model)
 	{
-		Movie movie = new Movie();
+		MovieDto movie = new MovieDto();
 		
 		
 		//taco.setIngredients(ingredients);
@@ -100,7 +108,7 @@ public class MovieController {
 	@GetMapping("/movie-list")
 	public String movieList(Model model)
 	{
-		List<Movie> movies = this.movieRepository.findAll();
+		Iterable<MovieDto> movies = this.movieService.getAllMovie();
 		//taco.setIngredients(ingredients);
 		model.addAttribute("movieList", movies);
 		return "movie-list";
