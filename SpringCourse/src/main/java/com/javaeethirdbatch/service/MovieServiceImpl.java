@@ -43,4 +43,10 @@ public class MovieServiceImpl implements MovieService{
 		return mapper.map(movie, MovieDto.class);
 	}
 
+	@Override
+	public void deleteMovie(MovieDto dto) {
+		Movie movie = mapper.map(dto, Movie.class);
+		this.movieRepository.delete(movie);;
+	}
+
 }

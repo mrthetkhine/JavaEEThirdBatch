@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,25 +63,29 @@ public class MovieController {
 	public String newMovie(Model model)
 	{
 		log.info("NewMovie controller");
-		Movie movie = new Movie();
+		MovieDto movie = new MovieDto();
 		//movie.setName("Titanic");
 		
 		List<String> genres = this.getMovieGenres();
 		//taco.setIngredients(ingredients);
 		model.addAttribute("movie", movie);
 		//model.addAttribute("genres", genres);
-		model.addAttribute("message", "Welcome to Model");
+		//model.addAttribute("message", "Welcome to Model");
 		
 		return "movie";
 	}
 	
 	@PostMapping
-	public String createMovie(@Valid MovieDto movie,Errors errors,
-							  @SessionAttribute("cart")ShoppingCart cart)
+	public String createMovie(@Valid MovieDto movie,
+								BindingResult errors,
+							  @SessionAttribute("cart")ShoppingCart cart,
+							  Model model)
 	{
 		if(errors.hasErrors())
 		{
-			log.error("Got error in create movie");
+			log.error("Got error in create movie count "+errors.getErrorCount());
+			model.addAttribute("movie", movie);
+			model.addAttribute("errors", errors);
 			return "movie";
 		}
 		else
