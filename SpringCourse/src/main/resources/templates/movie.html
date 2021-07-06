@@ -13,14 +13,18 @@
 		<div class="form-group">
 			<label for="name">Name</label>
 			<input type="text" th:field="*{name}" class="form-control"/>
-			<span class="validationError" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
-				
+
+			<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('name')}">
+				<span   th:errors="*{name}">Name Error</span>
+			</div>	
 		</div>
 		
 		<div class="form-group">
 			<label for="director"> Director</label> 
 			<input type="text" th:field="*{director}" class="form-control"/> 
-			<span class="validationError" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director Error</span>
+			<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('director')}">
+				<span   th:errors="*{director}">Director Error</span>
+			</div>
 		</div>
 		
 		<div class="form-group">
@@ -45,7 +49,10 @@
 		<div class="form-group">
 			<label for="year">Year</label>
 			<input type="text" th:field="*{year}" class="form-control"/> 
-			<span class="validationError" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</span>
+			<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('year')}" >
+				<span th:errors="*{year}">Year Error</span>
+			</div>
+			
 		</div>
 		
 		<button type="submit" class="btn btn-primary">Create</button>

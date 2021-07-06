@@ -7,6 +7,7 @@ import com.javaeethirdbatch.dto.MovieDto;
 
 public interface MovieService {
 	List<MovieDto> getAllMovie();
+	MovieDto getMovieById(Long id);
 	MovieDto saveMovie(MovieDto movie);
-	void deleteMovie(MovieDto movie);
+	void deleteMovieById(Long movieId);
 }

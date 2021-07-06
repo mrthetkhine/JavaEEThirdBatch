@@ -17,6 +17,7 @@
 	 				<th>Director</th>
 	 				<th>Year</th>
 	 				<th>Genres</th>
+	 				<th>Update</th>
 	 				<th>Delete</th>
 	 			</tr>
 	 		</thead>
@@ -26,6 +27,9 @@
 	              <td th:text="${movie.director}"></td>
 	              <td th:text="${movie.year}"></td>
 	              <td th:text="${movie.genre}"></td>
+	              <td >
+	              	<a th:href="@{'update/'+${movie.id}}">Update</a>
+	              </td>
 	              <td >
 	              	<a th:href="@{'delete/'+${movie.id}}">Delete</a>
 	              </td>

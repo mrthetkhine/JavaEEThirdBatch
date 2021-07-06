@@ -13,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -85,12 +86,6 @@ public class MovieController {
 		{
 			log.error("Got error in create movie count "+errors.getErrorCount());
 			//model.addAttribute("movie", movie);
-			
-			
-			for(FieldError fe : errors.getFieldErrors())
-			{
-				log.info(fe.getDefaultMessage());
-			}
 			return "movie";
 		}
 		else
@@ -123,5 +118,19 @@ public class MovieController {
 		model.addAttribute("movieList", movies);
 		return "movie-list";
 	}
+	@GetMapping("update/{movieId}")
+	public String updateMovie(@PathVariable Long movieId)
+	{
+		log.info("Update Movie "+movieId);
+		
+		return "movie";
+	}
 	
+	@GetMapping("delete/{movieId}")
+	public String deleteMovie(@PathVariable Long movieId)
+	{
+		log.info("Delete Movie "+movieId);
+		this.movieService.deleteMovieById(movieId);
+		return "redirect:/movie/movie-list";
+	}
 }
