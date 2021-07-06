@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -78,7 +79,7 @@ public class MovieController {
 	}
 	
 	@PostMapping
-	public String createMovie(@Valid @ModelAttribute("movie")MovieDto movie,
+	public String createOrUpdateMovie(@Valid @ModelAttribute("movie")MovieDto movie,
 								BindingResult errors
 							  )
 	{
@@ -97,7 +98,6 @@ public class MovieController {
 			return "redirect:movie/movie-list";
 		}
 		
-		//return "redirect:/";
 	}
 	@GetMapping("/new")
 	public String emptyMovie(Model model)
@@ -119,9 +119,12 @@ public class MovieController {
 		return "movie-list";
 	}
 	@GetMapping("update/{movieId}")
-	public String updateMovie(@PathVariable Long movieId)
+	public String updateMovie(@PathVariable Long movieId,Model model)
 	{
 		log.info("Update Movie "+movieId);
+		
+		MovieDto movie = this.movieService.getMovieById(movieId);
+		model.addAttribute("movie", movie);
 		
 		return "movie";
 	}
@@ -132,5 +135,26 @@ public class MovieController {
 		log.info("Delete Movie "+movieId);
 		this.movieService.deleteMovieById(movieId);
 		return "redirect:/movie/movie-list";
+	}
+	
+	@GetMapping("search")
+	public String findByName(Model model, @RequestParam String name)
+	{ 
+		log.info("Search Movie "+name);
+		
+		List<MovieDto> movies = this.movieService.getMovieByName(name);
+		model.addAttribute("movieList", movies);
+		
+		return "movie-list";
+	}
+	@GetMapping("search-like")
+	public String findNameLike(Model model, @RequestParam String name)
+	{ 
+		log.info("Search Movie "+name);
+		
+		List<MovieDto> movies = this.movieService.getMovieByNameLike(name);
+		model.addAttribute("movieList", movies);
+		
+		return "movie-list";
 	}
 }

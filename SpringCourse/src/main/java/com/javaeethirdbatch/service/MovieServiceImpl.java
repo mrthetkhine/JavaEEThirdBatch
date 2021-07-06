@@ -29,8 +29,22 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public List<MovieDto> getAllMovie() {
 		// TODO Auto-generated method stub
-		List<MovieDto> movieDtos = new ArrayList<MovieDto>();
 		Iterable<Movie> movies = this.movieRepository.findAll();
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> getMovieByName(String name) {
+		Iterable<Movie> movies = this.movieRepository.findByName(name);
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> getMovieByNameLike(String name) {
+		Iterable<Movie> movies = this.movieRepository.findByNameContaining(name);
+		return entityListToDto(movies);
+	}
+	
+	private List<MovieDto> entityListToDto(Iterable<Movie> movies) {
+		List<MovieDto> movieDtos = new ArrayList<MovieDto>();
 		for(Movie movie : movies)
 		{
 			///log.info("Class "+movie.getClass());
@@ -63,7 +77,8 @@ public class MovieServiceImpl implements MovieService{
 		//Movie movie = mapper.map(dto, Movie.class);
 		this.movieRepository.deleteById(movieId);
 	}
-
+	
+	
 	
 
 }

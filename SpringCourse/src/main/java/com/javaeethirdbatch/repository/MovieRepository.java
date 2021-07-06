@@ -9,4 +9,5 @@ public interface MovieRepository {
 	List<Movie> findAll();
 	Optional<Movie> findById(Long id);
 	Movie save(Movie movie);
+	
 }
