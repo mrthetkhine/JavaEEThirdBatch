@@ -6,6 +6,7 @@ import com.javaeethirdbatch.dto.MovieDto;
 
 
 public interface MovieService {
+	List<MovieDto> getAllMovieByPage(int pageNo, int size);
 	List<MovieDto> getAllMovie();
 	List<MovieDto> getMovieByName(String name);
 	List<MovieDto> getMovieByNameLike(String name);

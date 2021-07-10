@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.javaeethirdbatch.model.Movie;
@@ -89,6 +90,11 @@ public class MovieServiceImpl implements MovieService{
 	public void deleteMovieById(Long movieId) {
 		//Movie movie = mapper.map(dto, Movie.class);
 		this.movieRepository.deleteById(movieId);
+	}
+	@Override
+	public List<MovieDto> getAllMovieByPage(int pageNo, int size) {
+		Iterable<Movie> movies = this.movieRepository.findAll(PageRequest.of(pageNo, size));
+		return entityListToDto(movies);
 	}
 	
 	

@@ -177,4 +177,12 @@ public class MovieController {
 		
 		return "movie-list";
 	}
+	@GetMapping("/movie-list-by-page")
+	public String movieListByPage(Model model,@RequestParam int pageNo,@RequestParam int pageSize)
+	{
+		Iterable<MovieDto> movies = this.movieService.getAllMovieByPage(pageNo,pageSize);
+		//taco.setIngredients(ingredients);
+		model.addAttribute("movieList", movies);
+		return "movie-list";
+	}
 }
