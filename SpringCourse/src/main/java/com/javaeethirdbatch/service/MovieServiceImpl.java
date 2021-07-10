@@ -7,6 +7,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.javaeethirdbatch.model.Movie;
@@ -30,7 +31,9 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public List<MovieDto> getAllMovie() {
 		// TODO Auto-generated method stub
-		Iterable<Movie> movies = this.movieRepository.findAll();
+		//Iterable<Movie> movies = this.movieRepository.findAll();
+		//Iterable<Movie> movies = this.movieRepository.getAllMovie();
+		Iterable<Movie> movies= this.movieRepository.getAllMovieByJPQL();
 		return entityListToDto(movies);
 	}
 	@Override
@@ -93,7 +96,7 @@ public class MovieServiceImpl implements MovieService{
 	}
 	@Override
 	public List<MovieDto> getAllMovieByPage(int pageNo, int size) {
-		Iterable<Movie> movies = this.movieRepository.findAll(PageRequest.of(pageNo, size));
+		Iterable<Movie> movies = this.movieRepository.findAll(PageRequest.of(pageNo, size,Sort.by(Sort.DEFAULT_DIRECTION.ASC,"name")));
 		return entityListToDto(movies);
 	}
 	
