@@ -148,11 +148,31 @@ public class MovieController {
 		return "movie-list";
 	}
 	@GetMapping("search-like")
+	public String findNameLikeOne(Model model, @RequestParam String name)
+	{ 
+		log.info("Search Movie "+name);
+		
+		List<MovieDto> movies = this.movieService.getMovieByNameLike("%"+name+"%");
+		model.addAttribute("movieList", movies);
+		
+		return "movie-list";
+	}
+	@GetMapping("search-like-contain")
 	public String findNameLike(Model model, @RequestParam String name)
 	{ 
 		log.info("Search Movie "+name);
 		
-		List<MovieDto> movies = this.movieService.getMovieByNameLike(name);
+		List<MovieDto> movies = this.movieService.getMovieByNameContain(name);
+		model.addAttribute("movieList", movies);
+		
+		return "movie-list";
+	}
+	@GetMapping("search-year-greater-than")
+	public String searchYearGreaterThan(Model model, @RequestParam Long year)
+	{ 
+		log.info("Search Movie year greater than "+ year);
+		
+		List<MovieDto> movies = this.movieService.getMovieByYearGreaterThan(year);
 		model.addAttribute("movieList", movies);
 		
 		return "movie-list";

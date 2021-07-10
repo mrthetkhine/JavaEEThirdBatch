@@ -39,7 +39,20 @@ public class MovieServiceImpl implements MovieService{
 	}
 	@Override
 	public List<MovieDto> getMovieByNameLike(String name) {
+		Iterable<Movie> movies = this.movieRepository.findByNameLike(name);
+		
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> getMovieByNameContain(String name) {
 		Iterable<Movie> movies = this.movieRepository.findByNameContaining(name);
+		
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> getMovieByYearGreaterThan(Long year) {
+		Iterable<Movie> movies = this.movieRepository.findByYearGreaterThan(year);
+		
 		return entityListToDto(movies);
 	}
 	
@@ -77,6 +90,7 @@ public class MovieServiceImpl implements MovieService{
 		//Movie movie = mapper.map(dto, Movie.class);
 		this.movieRepository.deleteById(movieId);
 	}
+	
 	
 	
 	
