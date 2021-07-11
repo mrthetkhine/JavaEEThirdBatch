@@ -3,6 +3,7 @@ package com.javaeethirdbatch.service;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +75,18 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public MovieDto getMovieById(Long id) {
 		
-		Movie movie = this.movieRepository.findById(id).get();
-		MovieDto dto = mapper.map(movie, MovieDto.class);
-		
-		return dto;
+		Optional<Movie> movieOpt = this.movieRepository.findById(id);
+		if(movieOpt.isPresent())
+		{
+			Movie movie = movieOpt.get();
+			MovieDto dto = mapper.map(movie, MovieDto.class);
+			
+			return dto;
+		}
+		else
+		{
+			return new MovieDto();
+		}
 		
 	}
 	@Override

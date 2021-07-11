@@ -25,6 +25,18 @@ import lombok.Data;
 @Data
 public class MovieDto {
 	
+	public MovieDto()
+	{
+		
+	}
+	public MovieDto(Long id, String name, String director,Genres genre,Long year)
+	{
+		this.id = id;
+		this.name = name;
+		this.director = director;
+		this.genre = genre;
+		this.year = year;
+	}
 	private Long id;
 	
 	@NotNull
