@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.assertj.core.util.Arrays;
+import org.hamcrest.collection.IsArray;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class MovieRestControllerTest {
     MovieDto m3 = new MovieDto(3L,"Movie 3","Dir 1",Genres.Romance,1995L);
     
     @Test
-    public void getAllMovie() throws Exception
+    public void testGetAllMovie() throws Exception
     {
     	List<MovieDto> records = new ArrayList<>();
     	records.add(m1);
@@ -47,6 +48,12 @@ public class MovieRestControllerTest {
     	records.add(m3);
     	
     	Mockito.when(movieService.getAllMovie()).thenReturn(records);
+    	
+    	List<MovieDto> result = this.movieService.getAllMovie();
+    	for(MovieDto dto: result)
+    	{
+    		System.out.println(dto);
+    	}
     	mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/movies")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -54,4 +61,55 @@ public class MovieRestControllerTest {
                // .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].name", is("Movie 1")));
     }
+    
+    @Test
+    public void testGetMovieById() throws Exception
+    {   	
+    	Mockito.when(movieService.getMovieById(1L)).thenReturn(m1);
+    	mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/movies/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+               // .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$.name", is("Movie 1")));
+    	
+    	MovieDto emptyDto = new MovieDto();
+    	Mockito.when(movieService.getMovieById(2L)).thenReturn(emptyDto);
+    	mockMvc.perform(MockMvcRequestBuilders
+                .get("/api/movies/2")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+               
+    }
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void testPostSaveMovie()throws Exception
+    {
+    
+    	Mockito.when(movieService.saveMovie(m1)).thenReturn(m1);
+    	mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/movies")
+                .content(asJsonString(m1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+               // .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$.name", is("Movie 1")));
+    	
+    	MovieDto invalidDto= new MovieDto();
+    	mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/movies")
+                .content(asJsonString(invalidDto))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+               
+              
+    	    
+    }
+    
 }

@@ -23,8 +23,21 @@ import lombok.Data;
 //@Table(name="movie")
 @Data
 public class Movie implements Serializable{
-
+	
 	private static final long serialVersionUID = 1L;
+	
+	public Movie()
+	{
+		
+	}
+	public Movie(Long id, String name, String director,Genres genre, Long year)
+	{
+		this.id = id;
+		this.name = name;
+		this.director = director;
+		this.genre = genre;
+		this.year = year;
+	}
 
 	@Id
 	@Column(name="id")
