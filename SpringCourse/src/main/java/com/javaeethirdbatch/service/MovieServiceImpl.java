@@ -80,7 +80,7 @@ public class MovieServiceImpl implements MovieService{
 		{
 			Movie movie = movieOpt.get();
 			MovieDto dto = mapper.map(movie, MovieDto.class);
-			
+			log.info("Movie "+movie);
 			return dto;
 		}
 		else
