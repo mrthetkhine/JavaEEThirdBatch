@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PostUpdate;
 import javax.persistence.PreUpdate;
@@ -62,6 +65,11 @@ public class Movie extends BaseEntity implements Serializable{
 	
 	@Formula("year(now()) -year")
 	private Long howOld;
+	
+	@OneToOne(mappedBy="movie",
+			cascade = CascadeType.ALL,
+			fetch= FetchType.LAZY)
+	MovieDetail movieDetail;
 	
 	@PostLoad
 	private void postLoad()

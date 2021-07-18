@@ -62,4 +62,6 @@ public class MovieDto {
 	private Date updateAt = new Date();
 	
 	private Long howOld;
+	
+	private MovieDetailDto movieDetail;
 }
