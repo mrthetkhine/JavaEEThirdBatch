@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.javaeethirdbatch.model.Movie;
+import com.javaeethirdbatch.model.MovieDetail;
 import com.javaeethirdbatch.repository.MovieJpaRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Autowired
 	MovieJpaRepository movieRepository;
-	
+		
 	@Autowired
 	ModelMapper mapper;
 	
@@ -93,8 +94,17 @@ public class MovieServiceImpl implements MovieService{
 	public MovieDto saveMovie(MovieDto dto) {
 		// TODO Auto-generated method stub
 		Movie movie = mapper.map(dto, Movie.class);
+		
+		log.info("Movie Service Before saveMovie "+movie);
+		
+		MovieDetail movieDetail = mapper.map(dto.getMovieDetail(), MovieDetail.class);
+		
+		movie.setMovieDetail(movieDetail);
+		movieDetail.setMovie(movie);
+		
 		movie = this.movieRepository.save(movie);
 		
+		log.info("Movie Service After saveMovie "+movie);
 		return mapper.map(movie, MovieDto.class);
 	}
 

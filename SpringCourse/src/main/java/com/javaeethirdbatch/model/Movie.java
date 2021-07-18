@@ -71,6 +71,7 @@ public class Movie extends BaseEntity implements Serializable{
 			fetch= FetchType.LAZY)
 	MovieDetail movieDetail;
 	
+	/*
 	@PostLoad
 	private void postLoad()
 	{
@@ -85,4 +86,5 @@ public class Movie extends BaseEntity implements Serializable{
     private void postUpdateFunction(){
         log.info("PostUpdate method called");
     }
+    */
 }
