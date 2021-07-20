@@ -1,16 +1,19 @@
 package com.javaeethirdbatch.service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.javaeethirdbatch.model.Comment;
 import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.MovieDetail;
 import com.javaeethirdbatch.repository.MovieJpaRepository;
@@ -93,6 +96,14 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public MovieDto saveMovie(MovieDto dto) {
 		// TODO Auto-generated method stub
+		Movie movie = mapMovieDtoToEntity(dto);
+		
+		movie = this.movieRepository.save(movie);
+		
+		log.info("Movie Service After saveMovie "+movie);
+		return mapper.map(movie, MovieDto.class);
+	}
+	private Movie mapMovieDtoToEntity(MovieDto dto) {
 		Movie movie = mapper.map(dto, Movie.class);
 		
 		log.info("Movie Service Before saveMovie "+movie);
@@ -102,10 +113,14 @@ public class MovieServiceImpl implements MovieService{
 		movie.setMovieDetail(movieDetail);
 		movieDetail.setMovie(movie);
 		
-		movie = this.movieRepository.save(movie);
-		
-		log.info("Movie Service After saveMovie "+movie);
-		return mapper.map(movie, MovieDto.class);
+		Type targetListType = new TypeToken<List<Comment>>() {}.getType();
+		List<Comment> comments = mapper.map(dto.getComments(), targetListType);
+		for(Comment comment : comments )
+		{
+			comment.setMovie(movie);
+		}
+		movie.setComments(comments);
+		return movie;
 	}
 
 	@Override

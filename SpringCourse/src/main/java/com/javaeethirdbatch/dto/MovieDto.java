@@ -64,4 +64,8 @@ public class MovieDto {
 	private Long howOld;
 	
 	private MovieDetailDto movieDetail;
+	
+	private List<CommentDto> comments;
+	
+	private List<ActorDto> actors;
 }

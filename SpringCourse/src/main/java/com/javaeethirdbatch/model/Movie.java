@@ -3,6 +3,7 @@ package com.javaeethirdbatch.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PostUpdate;
@@ -70,6 +75,21 @@ public class Movie extends BaseEntity implements Serializable{
 			cascade = CascadeType.ALL,
 			fetch= FetchType.LAZY)
 	MovieDetail movieDetail;
+	
+	@OneToMany(
+			cascade= CascadeType.ALL,
+			orphanRemoval = true
+			)
+	@JoinColumn(name="movie_id")
+	List<Comment> comments;
+	
+	@ManyToMany(
+			fetch=FetchType.LAZY,
+			cascade=CascadeType.ALL)
+	@JoinTable(name="actor_in_movie",
+			joinColumns = { @JoinColumn(name = "movie_id") },
+            inverseJoinColumns = { @JoinColumn(name = "actor_id") })
+	List<Actor> actors;
 	
 	/*
 	@PostLoad

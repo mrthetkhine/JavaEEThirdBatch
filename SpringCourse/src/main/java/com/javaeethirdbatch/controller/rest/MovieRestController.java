@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.javaeethirdbatch.dto.MovieDetailDto;
 import com.javaeethirdbatch.dto.MovieDto;
 import com.javaeethirdbatch.service.MovieService;
+import com.mysql.cj.log.Log;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,7 +30,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequestMapping("/api/movies")
 @RestController
 @Tag(name = "movie", description = "the Movie API")
@@ -43,6 +47,22 @@ public class MovieRestController {
 		return movieService.getAllMovie();
 	}
 	
+	void showCaller()
+	{
+		try
+		{
+			throw new Exception();
+		}
+		catch(Exception e)
+		{
+			StackTraceElement[] stackTraces = e.getStackTrace();
+			for(StackTraceElement ele : stackTraces)
+			{
+				log.info("Caller class "+ ele.getClassName()+ " method "+ ele.getMethodName());
+			}
+				
+		}
+	}
 	@Operation(summary = "Get a movie", description = "Get movie by Id", tags = { "movie" })
 	@ApiResponses(value = {
 	        @ApiResponse(responseCode = "200", description = "successful fetch a movie"),
@@ -53,6 +73,7 @@ public class MovieRestController {
 			@Parameter(description="Id of the movie.", 
             required=true)
 			@PathVariable Long id) {
+		///showCaller();
 		MovieDto movie = this.movieService.getMovieById(id);
 		if(movie.getId() != null)
 		{
