@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "baec75f8-7ff8-4dba-9b50-5a86a01b1e5e",
+		"name": "JavaEE_ThirdBatch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Actor",
+			"item": [
+				{
+					"name": "GetActor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/actors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveActor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5,\n   \n    \"firstName\": \"Actor\",\n    \"lastName\": \"Four\",\n    \"gender\": \"MALE\",\n    \"address\": {\n        \"street\": \"SomeStreet\",\n        \"township\": \"Yankin\",\n        \"city\": \"Yangon\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/actors/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"actors",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateActor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Actor\",\n    \"lastName\": \"4\",\n    \"gender\": \"MALE\",\n    \"address\":{\n        \"street\": \"SomeStreet\",\n        \"township\": \"Yankin\",\n        \"city\": \"Yangon\"\n    }\n    \n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/actors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteActor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/actors/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"actors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllMovie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovieById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveMovie",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test Movie 35\",\n    \"director\": \"Someone\",\n    \"year\": 1990,\n    \"genre\": \"Action\",\n    \"createAt\": \"2021-07-18T13:46:52.000+00:00\",\n    \"updateAt\": \"2021-07-18T13:46:52.000+00:00\",\n    \"howOld\": 31,\n    \"movieDetail\": {\n        \"description\": \"Movie description 35\"\n    },\n    \"comments\": [\n        {\n        \n            \"comment\": \"Movie 35 first comment\"\n        },\n        {\n        \n            \"comment\": \"Movie 35 second comment\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMovie",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 34,\n    \"name\": \"Test Movie detail 6\",\n    \"director\": \"Someone\",\n    \"year\": 1990,\n    \"genre\": \"Action\",\n    \"createAt\": \"2021-07-18T13:46:52.000+00:00\",\n    \"updateAt\": \"2021-07-18T13:46:52.000+00:00\",\n    \"howOld\": 31,\n    \"movieDetail\": {\n        \"description\":\"Movie description\"\n    },\n    \"comments\": [\n        {\n            \"comment\": \"Movie 34 second comment\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/movies/34",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"34"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteMovie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/35",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllActor",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/actors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovieByDirector",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/director?directorName=Someone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"director"
+					],
+					"query": [
+						{
+							"key": "directorName",
+							"value": "Someone"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovieWithActor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/actor?actorName=James Bond",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"actor"
+					],
+					"query": [
+						{
+							"key": "actorName",
+							"value": "James Bond"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovieDetail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/details?text=Awesome",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"details"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "Awesome"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovieWithActorCount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/actor/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"actor",
+						"count"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
