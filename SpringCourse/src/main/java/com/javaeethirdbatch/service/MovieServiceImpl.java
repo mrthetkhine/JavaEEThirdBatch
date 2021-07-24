@@ -64,6 +64,37 @@ public class MovieServiceImpl implements MovieService{
 		
 		return entityListToDto(movies);
 	}
+	@Override
+	public List<MovieDto> getMovieByDirectorName(String director){
+		Iterable<Movie> movies = this.movieRepository.getMovieByDirector(director);
+		
+		return entityListToDto(movies);
+	}
+	
+	@Override
+	public List<MovieDto> getMovieWithActorName(String actorName){
+		Iterable<Movie> movies = this.movieRepository.getMovieWithActor(actorName);
+		
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> getMovieWithDetailText(String text)
+	{
+		Iterable<Movie> movies = this.movieRepository.getMovieThatContainDescription(text);
+		
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<Object[]> getMovieWithActorCount()
+	{
+		return this.movieRepository.getMovieWithActorCount();
+	}
+	
+	@Override
+	public List<MovieIdActorCount> getMovieWithActorCountWithDtoProjection()
+	{
+		return this.movieRepository.getMovieWithActorCountWithDtoProjection();
+	}
 	
 	private List<MovieDto> entityListToDto(Iterable<Movie> movies) {
 		List<MovieDto> movieDtos = new ArrayList<MovieDto>();

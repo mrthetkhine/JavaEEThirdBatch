@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaeethirdbatch.dto.MovieDetailDto;
 import com.javaeethirdbatch.dto.MovieDto;
+import com.javaeethirdbatch.dto.MovieIdActorCount;
 import com.javaeethirdbatch.service.MovieService;
 import com.mysql.cj.log.Log;
 
@@ -133,5 +135,42 @@ public class MovieRestController {
 			return  ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(movie);
 		}
+	}
+	@GetMapping("/director")
+	ResponseEntity<Object> getMovieByDirectorName(
+			@Parameter(description="Director Name.", 
+            required=true)
+			@RequestParam String directorName) {
+		///showCaller();
+		List<MovieDto> movies = this.movieService.getMovieByDirectorName(directorName);
+		return ResponseEntity.ok().body(movies);
+		
+	}
+	@GetMapping("/actor")
+	ResponseEntity<Object> getMovieWithActorName(
+			@Parameter(description="Actor Name.", 
+            required=true)
+			@RequestParam String actorName) {
+		///showCaller();
+		List<MovieDto> movies = this.movieService.getMovieWithActorName(actorName);
+		return ResponseEntity.ok().body(movies);
+		
+	}
+	@GetMapping("/actor/count")
+	ResponseEntity<Object> getMovieWithActorCount() {
+		///showCaller();
+		List<MovieIdActorCount> data = this.movieService.getMovieWithActorCountWithDtoProjection();
+		return ResponseEntity.ok().body(data);
+		
+	}
+	@GetMapping("/details")
+	ResponseEntity<Object> getMovieWithDetail(
+			@Parameter(description="Detail Text", 
+            required=true)
+			@RequestParam String text) {
+		///showCaller();
+		List<MovieDto> movies = this.movieService.getMovieWithDetailText(text);
+		return ResponseEntity.ok().body(movies);
+		
 	}
 }
