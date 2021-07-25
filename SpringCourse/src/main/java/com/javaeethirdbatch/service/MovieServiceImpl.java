@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.javaeethirdbatch.model.Comment;
 import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.MovieDetail;
+import com.javaeethirdbatch.repository.MovieDAO;
 import com.javaeethirdbatch.repository.MovieJpaRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,12 +36,16 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	ModelMapper mapper;
 	
+	@Autowired
+	MovieDAO movieDao;
+	
 	@Override
 	public List<MovieDto> getAllMovie() {
 		// TODO Auto-generated method stub
 		//Iterable<Movie> movies = this.movieRepository.findAll();
 		//Iterable<Movie> movies = this.movieRepository.getAllMovie();
-		Iterable<Movie> movies= this.movieRepository.getAllMovieByJPQL();
+		//Iterable<Movie> movies= this.movieRepository.getAllMovieByJPQL();
+		List<Movie> movies = this.movieDao.findAll();
 		return entityListToDto(movies);
 	}
 	@Override
@@ -154,10 +161,12 @@ public class MovieServiceImpl implements MovieService{
 		return movie;
 	}
 
+	@Transactional
 	@Override
 	public void deleteMovieById(Long movieId) {
 		//Movie movie = mapper.map(dto, Movie.class);
-		this.movieRepository.deleteById(movieId);
+		//this.movieRepository.deleteById(movieId);
+		this.movieRepository.deleteMovieByIdJPQL(movieId);
 	}
 	@Override
 	public List<MovieDto> getAllMovieByPage(int pageNo, int size) {
