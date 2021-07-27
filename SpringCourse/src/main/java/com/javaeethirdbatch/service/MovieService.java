@@ -9,6 +9,11 @@ import com.javaeethirdbatch.dto.MovieIdActorCount;
 public interface MovieService {
 	List<MovieDto> getAllMovieByPage(int pageNo, int size);
 	List<MovieDto> getAllMovie();
+	
+	List<MovieDto> searchMovie(String movieName, String directorName, Long year);
+	List<MovieDto> searchMovieByYear(Long year);
+	List<MovieDto> searchByActor(String actor);
+	
 	List<MovieDto> getMovieByName(String name);
 	List<MovieDto> getMovieByNameLike(String name);
 	List<MovieDto> getMovieByNameContain(String name);

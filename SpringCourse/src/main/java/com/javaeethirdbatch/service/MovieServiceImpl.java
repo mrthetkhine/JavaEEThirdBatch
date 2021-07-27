@@ -49,6 +49,23 @@ public class MovieServiceImpl implements MovieService{
 		return entityListToDto(movies);
 	}
 	@Override
+	public
+	List<MovieDto> searchMovie(String movieName, String directorName, Long year)
+	{
+		List<Movie> movies = this.movieDao.searchMovie(movieName, directorName, year);
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> searchMovieByYear(Long year) {
+		List<Movie> movies = this.movieDao.searchMovieByYear( year);
+		return entityListToDto(movies);
+	}
+	@Override
+	public List<MovieDto> searchByActor(String actor){
+		List<Movie> movies = this.movieDao.searchByActor( actor);
+		return entityListToDto(movies);
+	}
+	@Override
 	public List<MovieDto> getMovieByName(String name) {
 		Iterable<Movie> movies = this.movieRepository.findByName(name);
 		return entityListToDto(movies);
@@ -173,6 +190,7 @@ public class MovieServiceImpl implements MovieService{
 		Iterable<Movie> movies = this.movieRepository.findAll(PageRequest.of(pageNo, size,Sort.by(Sort.DEFAULT_DIRECTION.ASC,"name")));
 		return entityListToDto(movies);
 	}
+	
 	
 	
 	

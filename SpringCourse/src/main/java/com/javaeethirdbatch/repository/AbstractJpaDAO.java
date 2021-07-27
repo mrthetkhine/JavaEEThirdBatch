@@ -2,7 +2,7 @@ package com.javaeethirdbatch.repository;
 
 import java.io.Serializable;
 import java.util.List;
-
+import java.lang.reflect.ParameterizedType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,10 +13,11 @@ public class AbstractJpaDAO < T extends Serializable > {
 	   @PersistenceContext
 	   EntityManager entityManager;
 
-	   public final void setClazz( Class< T > clazzToSet ){
-	      this.clazz = clazzToSet;
-	   }
-
+	   @SuppressWarnings("unchecked")
+	    public AbstractJpaDAO(){
+	        this.clazz =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	    }
+	   
 	   public T findOne( long id ){
 	      return entityManager.find( clazz, id );
 	   }

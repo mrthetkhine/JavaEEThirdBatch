@@ -49,6 +49,15 @@ public class MovieRestController {
 		return movieService.getAllMovie();
 	}
 	
+	
+	@GetMapping("/search")
+	List<MovieDto> search(
+			@RequestParam(required=false) String movieName,
+			@RequestParam(required=false) String directorName,
+			@RequestParam(required=false) Long year) {
+		log.info("MovieName "+movieName + " directorName "+directorName + " year "+year);
+		return movieService.searchMovie(movieName, directorName, year);
+	}
 	void showCaller()
 	{
 		try
@@ -64,6 +73,18 @@ public class MovieRestController {
 			}
 				
 		}
+	}
+	@GetMapping("/search-by-year")
+	List<MovieDto> searchByYear(
+			@RequestParam(required=false) Long year) {
+		
+		return movieService.searchMovieByYear(year);
+	}
+	@GetMapping("/search-by-actor")
+	List<MovieDto> searchByActor(
+			@RequestParam(required=false) String actor) {
+		
+		return movieService.searchByActor(actor);
 	}
 	@Operation(summary = "Get a movie", description = "Get movie by Id", tags = { "movie" })
 	@ApiResponses(value = {
