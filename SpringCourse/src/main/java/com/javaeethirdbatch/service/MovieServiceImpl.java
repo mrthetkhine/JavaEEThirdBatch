@@ -53,7 +53,11 @@ public class MovieServiceImpl implements MovieService{
 	public
 	List<MovieDto> searchMovie(String movieName, String directorName, Long year)
 	{
-		List<Movie> movies = this.movieDao.searchMovie(movieName, directorName, year);
+		//Used DAO Criteria API
+		//List<Movie> movies = this.movieDao.searchMovie(movieName, directorName, year);
+		
+		//Use JPA Specification
+		List<Movie> movies = this.movieRepository.findAll(MovieSpecification.getAllMovie(movieName, directorName, year));
 		return entityListToDto(movies);
 	}
 	@Override
