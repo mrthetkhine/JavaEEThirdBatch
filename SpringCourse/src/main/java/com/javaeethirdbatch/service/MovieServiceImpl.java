@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -57,8 +59,35 @@ public class MovieServiceImpl implements MovieService{
 		//List<Movie> movies = this.movieDao.searchMovie(movieName, directorName, year);
 		
 		//Use JPA Specification
-		List<Movie> movies = this.movieRepository.findAll(MovieSpecification.getAllMovie(movieName, directorName, year));
+		//List<Movie> movies = this.movieRepository.findAll(MovieSpecification.getAllMovie(movieName, directorName, year));
+		
+		//Use QBE
+		Movie movie = new Movie();
+		if(movieName !=null)
+		{
+			movie.setName(movieName);
+		}
+		if(directorName != null)
+		{
+			movie.setDirector(directorName);
+		}
+		if(year != null)
+		{
+			movie.setYear(year);
+		}
+		
+		//Or
+		ExampleMatcher matcher = ExampleMatcher.matchingAny();
+		
+		//And
+		matcher = ExampleMatcher.matchingAll();
+		Example<Movie> movieExample = Example.of(movie,matcher);
+		
+		
+		log.info("Find Movie by director,movie, year with QBE");
+		Iterable<Movie> movies = this.movieRepository.findAll(movieExample);
 		return entityListToDto(movies);
+		
 	}
 	@Override
 	public List<MovieDto> searchMovieByYear(Long year) {
@@ -95,8 +124,40 @@ public class MovieServiceImpl implements MovieService{
 	}
 	@Override
 	public List<MovieDto> getMovieByDirectorName(String director){
+		//JPA repository
 		//Iterable<Movie> movies = this.movieRepository.getMovieByDirector(director);
-		Iterable<Movie> movies = this.movieRepository.findAll(MovieSpecification.getAllMovieByDirectorName(director));
+		
+		//Use sepcification
+		//Iterable<Movie> movies = this.movieRepository.findAll(MovieSpecification.getAllMovieByDirectorName(director));
+		
+		
+		//Use query by example
+		
+		/*
+		Movie movie = new Movie();
+		movie.setDirector(director);
+		
+		ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase();
+		//Example<Movie> movieExample = Example.of(movie);
+	
+		Example<Movie> movieExample = Example.of(movie,matcher);
+		
+		log.info("Find Movie by director with QBE");
+		*/
+		//Find moview with director name end with ron
+		return getDirectorEndWith("ron");
+	}
+	private List<MovieDto> getDirectorEndWith(String suffix) {
+		Movie movie = new Movie();
+		movie.setDirector(suffix);
+		
+		ExampleMatcher matcher = ExampleMatcher.matchingAll().withStringMatcher(ExampleMatcher.StringMatcher.ENDING);
+		//Example<Movie> movieExample = Example.of(movie);
+	
+		Example<Movie> movieExample = Example.of(movie,matcher);
+		
+		log.info("Find Movie by director with QBE");
+		Iterable<Movie> movies = this.movieRepository.findAll(movieExample);
 		return entityListToDto(movies);
 	}
 	

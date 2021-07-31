@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 
 import com.javaeethirdbatch.dto.MovieIdActorCount;
 import com.javaeethirdbatch.model.Movie;
-public interface MovieJpaRepository extends CrudRepository<Movie,Long>,JpaSpecificationExecutor<Movie> {
+public interface MovieJpaRepository extends CrudRepository<Movie,Long>,JpaSpecificationExecutor<Movie>,QueryByExampleExecutor<Movie> {
 
 	List<Movie> findAll(Pageable pagable);
 	List<Movie> findByName(String name);

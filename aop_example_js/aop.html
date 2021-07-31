@@ -1,0 +1,22 @@
+<html>
+    <script>
+        function auth()
+        {
+            console.log("Auth Logic");
+        }
+        function business()
+        {
+            console.log("Business Logic");
+        }
+        function weave(aspect,target)
+        {
+            return function()
+            {
+                aspect();
+                return target();
+            }
+        }
+        let weaveFunc = weave(auth,business);
+        weaveFunc();
+</script>
+</html>
