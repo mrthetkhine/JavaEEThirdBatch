@@ -20,6 +20,7 @@ import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.MovieDetail;
 import com.javaeethirdbatch.repository.MovieDAO;
 import com.javaeethirdbatch.repository.MovieJpaRepository;
+import com.javaeethirdbatch.service.specification.MovieSpecification;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,8 +91,8 @@ public class MovieServiceImpl implements MovieService{
 	}
 	@Override
 	public List<MovieDto> getMovieByDirectorName(String director){
-		Iterable<Movie> movies = this.movieRepository.getMovieByDirector(director);
-		
+		//Iterable<Movie> movies = this.movieRepository.getMovieByDirector(director);
+		Iterable<Movie> movies = this.movieRepository.findAll(MovieSpecification.getAllMovieByDirectorName(director));
 		return entityListToDto(movies);
 	}
 	

@@ -2,6 +2,7 @@ package com.javaeethirdbatch.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -9,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.javaeethirdbatch.dto.MovieIdActorCount;
 import com.javaeethirdbatch.model.Movie;
-public interface MovieJpaRepository extends CrudRepository<Movie,Long> {
+public interface MovieJpaRepository extends CrudRepository<Movie,Long>,JpaSpecificationExecutor<Movie> {
 
 	List<Movie> findAll(Pageable pagable);
 	List<Movie> findByName(String name);
