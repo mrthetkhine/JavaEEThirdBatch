@@ -32,4 +32,9 @@ public class LoggingAspect {
 	{
 		log.info("Logging Aspect After");
 	}
+	@After("execution(* com.javaeethirdbatch.controller.rest.*.*(..))")
+	public void logAfterController()
+	{
+		log.info("Logging Aspect After Contoller");
+	}
 }
