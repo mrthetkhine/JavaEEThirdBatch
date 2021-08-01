@@ -44,6 +44,7 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public List<MovieDto> getAllMovie() {
+		log.info("At get movie");
 		// TODO Auto-generated method stub
 		//Iterable<Movie> movies = this.movieRepository.findAll();
 		//Iterable<Movie> movies = this.movieRepository.getAllMovie();
