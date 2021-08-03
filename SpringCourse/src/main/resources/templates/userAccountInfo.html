@@ -7,7 +7,10 @@
    <body>
      <h1>Welcome to Spring Dashboard...</h1>
      
+     UserName <span th:text=${user.name}>Username will be rendered here</span>.
      
+     <br/>
+     Role<span th:text=${user.roles[0].name}>Role will be rendered here</span>.
      
 </body>
 </html>

@@ -246,7 +246,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/movies/35",
+					"raw": "http://localhost:8080/api/movies/16",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -255,7 +255,7 @@
 					"path": [
 						"api",
 						"movies",
-						"35"
+						"16"
 					]
 				}
 			},
@@ -293,7 +293,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/movies/director?directorName=Someone",
+					"raw": "http://localhost:8080/api/movies/director?directorName=someone",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -307,7 +307,7 @@
 					"query": [
 						{
 							"key": "directorName",
-							"value": "Someone"
+							"value": "someone"
 						}
 					]
 				}
@@ -385,6 +385,95 @@
 						"movies",
 						"actor",
 						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchAllMovie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/search?movieName=Matrix&directorName=Jame Cameron&year=2001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"search"
+					],
+					"query": [
+						{
+							"key": "movieName",
+							"value": "Matrix"
+						},
+						{
+							"key": "directorName",
+							"value": "Jame Cameron"
+						},
+						{
+							"key": "year",
+							"value": "2001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchMovieByYear",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/search-by-year?year=2001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"search-by-year"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchByActor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/movies/search-by-actor?actor=James Bond",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"movies",
+						"search-by-actor"
+					],
+					"query": [
+						{
+							"key": "actor",
+							"value": "James Bond"
+						}
 					]
 				}
 			},

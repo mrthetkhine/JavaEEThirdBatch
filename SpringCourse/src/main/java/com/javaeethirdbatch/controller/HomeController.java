@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.javaeethirdbatch.model.Movie;
 import com.javaeethirdbatch.model.ShoppingCart;
+import com.javaeethirdbatch.model.User;
 import com.javaeethirdbatch.repository.MovieRepository;
+import com.javaeethirdbatch.repository.UserJpaRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +28,9 @@ public class HomeController {
 
 	@Autowired
 	MovieRepository movieRepository;
+	
+	@Autowired
+	UserJpaRepository userRepository;
 	
 	@GetMapping("/")
 	public String home()
@@ -53,7 +61,14 @@ public class HomeController {
 	@GetMapping("/userAccountInfo")
 	String page(Model model){
 		
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		    String currentUserName = authentication.getName();
+		    
+		    System.out.println("Loggined UserName "+currentUserName);
+		    User user = this.userRepository.findByName(currentUserName);
+		    model.addAttribute("user", user);
+		}
 		return "userAccountInfo";
 	}
 	@GetMapping("/admin")
