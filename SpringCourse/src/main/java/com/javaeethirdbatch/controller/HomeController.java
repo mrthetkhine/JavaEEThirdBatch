@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.javaeethirdbatch.model.Movie;
@@ -34,5 +37,35 @@ public class HomeController {
 		//log.info("Shopping cart size at "+cart.getMovies().size());
 		return "home";
 	}
-	
+	@GetMapping("/login")
+	String login(Model model,@RequestParam(value = "error",required = false) Boolean error){
+		System.out.println("Login get");
+		model.addAttribute("error", error);
+		return "login";
+	}
+	@PostMapping("/login")
+	String loginPost(Model model){
+		System.out.println("Login post");
+
+		
+		return "login";
+	}
+	@GetMapping("/userAccountInfo")
+	String page(Model model){
+		
+		
+		return "userAccountInfo";
+	}
+	@GetMapping("/admin")
+	String admin(Model model){
+		
+		System.out.println("Admin route");
+		return "admin";
+	}
+	@GetMapping("/logoutSuccessful")
+	String logoutSuccess(Model model)
+	{
+		System.out.println("You have been logout");
+		return "logoutSuccessful";
+	}
 }
